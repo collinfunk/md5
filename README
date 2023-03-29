@@ -1,0 +1,9 @@
+
+Implementation of the MD5 message-digest algorithm tested against the strings
+shown in RFC 1321.
+
+If your system's byte order is little-endian you can #define MD5_LITTLE_ENDIAN
+to use memcpy to convert 64-byte blocks into 32-bit words for md5_transform.
+Clang seems to produce the same assembly with just -O3 whether or not memcpy
+is used, but it might be faster on other optimization settings :D.
+
