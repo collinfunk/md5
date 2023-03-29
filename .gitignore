@@ -15,4 +15,5 @@ tags
 *.out
 
 test-md5
+test-md4
 

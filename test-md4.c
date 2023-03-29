@@ -27,17 +27,17 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "md5.h"
+#include "md4.h"
 
 static int
-md5_test(const char *message, const char *expected, int number)
+md4_test(const char *message, const char *expected, int number)
 {
-	struct md5_ctx ctx;
+	struct md4_ctx ctx;
 	uint8_t digest[16];
 
-	md5_init(&ctx);
-	md5_update(&ctx, message, strlen(message));
-	md5_final(digest, &ctx);
+	md4_init(&ctx);
+	md4_update(&ctx, message, strlen(message));
+	md4_final(digest, &ctx);
 
 	printf("Digest #%02d: ", number);
 	for (int i = 0; i < 16; ++i)
@@ -57,51 +57,51 @@ main(void)
 {
 
 	/*
-	 * Test vectors from RFC 1321.
+	 * Test vectors from RFC 1320.
 	 */
 	const char test_msg1[] = "";
-	const char expected1[16] = "\xd4\x1d\x8c\xd9\x8f\x00\xb2\x04"
-		"\xe9\x80\x09\x98\xec\xf8\x42\x7e";
+	const char expected1[16] = "\x31\xd6\xcf\xe0\xd1\x6a\xe9\x31"
+		"\xb7\x3c\x59\xd7\xe0\xc0\x89\xc0";
 
 	const char test_msg2[] = "a";
-	const char expected2[16] = "\x0c\xc1\x75\xb9\xc0\xf1\xb6\xa8"
-		"\x31\xc3\x99\xe2\x69\x77\x26\x61";
+	const char expected2[16] = "\xbd\xe5\x2c\xb3\x1d\xe3\x3e\x46"
+		"\x24\x5e\x05\xfb\xdb\xd6\xfb\x24";
 
 	const char test_msg3[] = "abc";
-	const char expected3[16] = "\x90\x01\x50\x98\x3c\xd2\x4f\xb0"
-		"\xd6\x96\x3f\x7d\x28\xe1\x7f\x72";
+	const char expected3[16] = "\xa4\x48\x01\x7a\xaf\x21\xd8\x52"
+		"\x5f\xc1\x0a\xe8\x7a\xa6\x72\x9d";
 
 	const char test_msg4[] = "message digest";
-	const char expected4[16] = "\xf9\x6b\x69\x7d\x7c\xb7\x93\x8d"
-		"\x52\x5a\x2f\x31\xaa\xf1\x61\xd0";
+	const char expected4[16] = "\xd9\x13\x0a\x81\x64\x54\x9f\xe8"
+		"\x18\x87\x48\x06\xe1\xc7\x01\x4b";
 
 	const char test_msg5[] = "abcdefghijklmnopqrstuvwxyz";
-	const char expected5[16] = "\xc3\xfc\xd3\xd7\x61\x92\xe4\x00"
-		"\x7d\xfb\x49\x6c\xca\x67\xe1\x3b";
+	const char expected5[16] = "\xd7\x9e\x1c\x30\x8a\xa5\xbb\xcd"
+		"\xee\xa8\xed\x63\xdf\x41\x2d\xa9";
 
 	const char test_msg6[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef"
 		"ghijklmnopqrstuvwxyz0123456789";
-	const char expected6[16] = "\xd1\x74\xab\x98\xd2\x77\xd9\xf5"
-		"\xa5\x61\x1c\x2c\x9f\x41\x9d\x9f";
+	const char expected6[16] = "\x04\x3f\x85\x82\xf2\x41\xdb\x35"
+		"\x1c\xe6\x27\xe1\x53\xe7\xf0\xe4";
 
 	const char test_msg7[] = "1234567890123456789012345678901234"
 		"5678901234567890123456789012345678901234567890";
-	const char expected7[16] = "\x57\xed\xf4\xa2\x2b\xe3\xc9\x55"
-		"\xac\x49\xda\x2e\x21\x07\xb6\x7a";
+	const char expected7[16] = "\xe3\x3b\x4d\xdc\x9c\x38\xf2\x19"
+		"\x9c\x3e\x7b\x16\x4f\xcc\x05\x36";
 
-	if (md5_test(test_msg1, expected1, 1) != 0)
+	if (md4_test(test_msg1, expected1, 1) != 0)
 		exit(1);
-	if (md5_test(test_msg2, expected2, 2) != 0)
+	if (md4_test(test_msg2, expected2, 2) != 0)
 		exit(1);
-	if (md5_test(test_msg3, expected3, 3) != 0)
+	if (md4_test(test_msg3, expected3, 3) != 0)
 		exit(1);
-	if (md5_test(test_msg4, expected4, 4) != 0)
+	if (md4_test(test_msg4, expected4, 4) != 0)
 		exit(1);
-	if (md5_test(test_msg5, expected5, 5) != 0)
+	if (md4_test(test_msg5, expected5, 5) != 0)
 		exit(1);
-	if (md5_test(test_msg6, expected6, 6) != 0)
+	if (md4_test(test_msg6, expected6, 6) != 0)
 		exit(1);
-	if (md5_test(test_msg7, expected7, 7) != 0)
+	if (md4_test(test_msg7, expected7, 7) != 0)
 		exit(1);
 
 	return 0;

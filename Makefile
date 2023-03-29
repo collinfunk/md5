@@ -6,16 +6,22 @@ CFLAGS += -O3 -Wall
 
 # Use memcpy to conver blocks[] in md5_transform.
 # CFLAGS += -DMD5_LITTLE_ENDIAN
+# CFLAGS += -DMD4_LITTLE_ENDIAN
 
-PROG = test-md5
-OBJS = test-md5.o md5.o
+# Cross compile for 32-bit with clang
+# CFLAGS += --target=i386-elf
+
+OBJS = test-md4.o test-md5.o md5.o md4.o
 
 .SUFFIXES: .c .o
 .PHONY: all clean
-all: $(PROG)
+all: test-md4 test-md5
 
-$(PROG): $(OBJS)
-	$(CC) $(CFLAGS) -o $(PROG) $(OBJS)
+test-md4: test-md4.o md4.o md4.h
+	$(CC) $(CFLAGS) -o test-md4 test-md4.o md4.o
+
+test-md5: test-md5.o md5.o md5.h
+	$(CC) $(CFLAGS) -o test-md5 test-md5.o md5.o
 
 .c.o:
 	$(CC) $(CFLAGS) -c $< -o $@
