@@ -27,7 +27,7 @@
 #define CRYPTO_MD5_H
 
 #include <stdint.h>
-#include <stdio.h>
+#include <stddef.h>
 
 struct md5_ctx {
 	uint32_t state[4]; /* 4 32-bit state words */

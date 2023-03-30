@@ -27,5 +27,5 @@ test-md5: test-md5.o md5.o md5.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(PROG) $(OBJS)
+	rm -f $(OBJS) test-md4 test-md5
 
